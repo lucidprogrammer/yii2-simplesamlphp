@@ -1,0 +1,26 @@
+{
+    "name": "lucidprogrammer/yii2-simplesamlphp",
+    "type": "yii2-extension",
+    "description": "SAML Service Provider(SP) for Yii2 using simplesamlphp",
+    "keywords": ["yii2", "saml","simplesamlphp","yii"],
+    "license": "BSD-3-Clause",
+    "require": {
+        "yiisoft/yii2": "2.*.*",
+        "simplesamlphp/simplesamlphp": ">=1.14"
+    },
+    "authors": [
+        {
+            "name": "Lucid Programmer",
+            "email": "lucidprogrammer@hotmail.com"
+        }
+    ],
+    "autoload": {
+       "psr-4": {
+           "lucidprogrammer\\simplesamlphp\\": "src/"
+       }
+   },
+   "extra": {
+        "bootstrap": "lucidprogrammer\\simplesamlphp\\BootstrapClass"
+    }
+
+}
