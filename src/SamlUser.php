@@ -31,7 +31,7 @@ class SamlUser extends User
   public function logout($destroySession = true)
   {
 
-    Yii::$container->get('saml')->logout(Yii::$app->homeUrl);
+    Yii::$container->get('saml')->logout('/');
     parent::logout($destroySession);
 
   }
