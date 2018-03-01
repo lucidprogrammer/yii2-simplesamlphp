@@ -43,7 +43,11 @@ class SamlIdentity extends Object implements IdentityInterface {
     {
       $attributes = Yii::$container->get('saml')->getAttributes();
       if(sizeof($attributes) > 0){
-        $id = $attributes['username'][0];
+        $id = mt_rand();
+        $uniqueIdentifierFromIdp = getenv('IDP_PROVIDED_USER_IDENTIFIER_NAME') ? getenv('IDP_PROVIDED_USER_IDENTIFIER_NAME') : '';
+        if($uniqueIdentifierFromIdp){
+          $id = $attributes[$uniqueIdentifierFromIdp] && count($attributes[$uniqueIdentifierFromIdp])>0 ? $attributes[$uniqueIdentifierFromIdp][0] : $id;
+        }
         return new SamlIdentity($id,$attributes);
       }
       return null;

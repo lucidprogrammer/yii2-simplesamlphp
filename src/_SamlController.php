@@ -22,7 +22,12 @@ class _SamlController extends Controller {
       Yii::$container->get('saml')->requireAuth();
     } else {
       $attributes = Yii::$container->get('saml')->getAttributes();
-      $id = $attributes['username'][0];
+      $id = mt_rand();
+      $uniqueIdentifierFromIdp = getenv('IDP_PROVIDED_USER_IDENTIFIER_NAME') ? getenv('IDP_PROVIDED_USER_IDENTIFIER_NAME') : '';
+      if($uniqueIdentifierFromIdp){
+        $id = $attributes[$uniqueIdentifierFromIdp] && count($attributes[$uniqueIdentifierFromIdp])>0 ? $attributes[$uniqueIdentifierFromIdp][0] : $id;
+      }
+
       Yii::$app->user->login(new SamlIdentity($id,$attributes), 0);
       $this->goBack();
     }
