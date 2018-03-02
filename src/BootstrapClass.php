@@ -15,6 +15,7 @@ use yii;
 use yii\base\BootstrapInterface;
 use yii\base\Application;
 use lucidprogrammer\simplesamlphp\Saml;
+use lucidprogrammer\simplesamlphp\SamlSettings;
 
 class BootstrapClass implements BootstrapInterface
 {
@@ -25,6 +26,7 @@ class BootstrapClass implements BootstrapInterface
             Yii::$app->controllerMap['_saml'] = '\lucidprogrammer\simplesamlphp\_SamlController';
             //a globally accessible instance of saml
             Yii::$container->set('saml',new Saml());
+            Yii::$container->set('samlsettings',new SamlSettings());
             // TODO possibly check if the user has enabled /saml alias.
         });
     }

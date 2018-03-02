@@ -10,7 +10,7 @@
  */
 
 namespace lucidprogrammer\simplesamlphp;
-use yii\base\BaseObject;
+use lucidprogrammer\simplesamlphp\BaseObject;
 
 class Saml extends BaseObject {
 

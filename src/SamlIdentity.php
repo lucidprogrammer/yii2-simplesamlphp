@@ -14,7 +14,7 @@ namespace lucidprogrammer\simplesamlphp;
 
 
 use yii;
-use yii\base\BaseObject;
+use lucidprogrammer\simplesamlphp\BaseObject;
 use yii\web\IdentityInterface;
 use lucidprogrammer\simplesamlphp\SamlIdentity;
 

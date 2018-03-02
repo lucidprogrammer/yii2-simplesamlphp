@@ -28,7 +28,9 @@ class SamlUser extends User
       unset($mappings['idAttribute']);
       $mappings = array_values($mappings);
     }
-    Yii::$container->set('samlsettings',new SamlSettings($idAttribute,$mappings,[]));
+    Yii::$container->get('samlsettings')->idAttribute = $idAttribute;
+    Yii::$container->get('samlsettings')->mappings = $mappings;
+
     parent::__construct();
   }
   /**

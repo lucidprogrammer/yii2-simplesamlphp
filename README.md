@@ -101,10 +101,15 @@ If your application has links to login, for example, 'site/login', you need to c
 
 However, it is best if you use Yii::$app->user->loginUrl[0], so it will take whatever is the correct loginUrl, so it will work with or without this plugin.
 
+## Sample app
+
+https://github.com/lucidprogrammer/yii2-adfs-saml20-sp
+
 # Changelog
 
 02 March 2018
 http://www.yiiframework.com/doc-2.0/yii-base-object.html
 The class name `Object` is invalid since PHP 7.2, use [[BaseObject]] instead.
+[handle backward compatibility to yii base Object]
 Added SamlSettings options for easy configuration.
 Tested with ADFS 3.0, Windows 2012 R2 & simplesamlphp (IDP)

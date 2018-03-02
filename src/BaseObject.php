@@ -8,20 +8,16 @@
  * @license    https://github.com/lucidprogrammer/yii2-simplesamlphp/blob/master/README.md
  * @link       https://github.com/lucidprogrammer/yii2-simplesamlphp
  */
-
 namespace lucidprogrammer\simplesamlphp;
-use lucidprogrammer\simplesamlphp\BaseObject;
-
-class SamlSettings extends BaseObject {
-var $idAttribute;
-var $mappings;
-
-  public function __construct ( $idAttribute='', $mappings=[], $config = [] ){
-          $this->idAttribute = $idAttribute;
-          $this->mappings = $mappings;
-          parent::__construct ( $config = [] );
-    }
+use yii\base\BaseObject as Another;
 
 
+if (class_exists('Another')) {
+    class MiddleManClass extends Another { }
+} else {
+    class MiddleManClass extends \yii\base\Object{ }
+}
+
+class BaseObject extends MiddleManClass {
 
 }
