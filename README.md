@@ -48,9 +48,26 @@ Yii configuration straightforward, just add the following in your config/web.php
 ```
 'user' => [
     'class' => 'lucidprogrammer\simplesamlphp\SamlUser',
+    //idAttribute is mandatory
+    //for example, if your IDP is sending a SAML payload which has ID, you may do as follows
+    'idAttribute' => 'ID',
+    //if you want to map IDP provided attributes to something else, you may do additional mappings as name value pairs.
+    //following are some examples, not mandatory
+    'firstName' => 'givenName',
+    'company' => 'companyName',
 ],
 
 ```
+ADFS example,
+```
+'user' => [
+    'class' => 'lucidprogrammer\simplesamlphp\SamlUser',
+    //for example, if your IDP is ADFS, and you want to use email address as the unique ID
+    'idAttribute' => 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress',
+],
+
+```
+
 
 ### Note on enabling authentication for a route using yii2
 
@@ -80,6 +97,14 @@ After the component is installed, the moment you hit the site/about page, it sho
 So, if you want to do SAML provided attributes and want to implement a fine grained access control, yii2 makes it easy.
 
 ### Note on yii2 login link.
-If your application has links to login, for example, 'site/login', you need to change to _saml/login.
+If your application has links to login, for example, 'site/login', you need to change to _saml/login._
 
 However, it is best if you use Yii::$app->user->loginUrl[0], so it will take whatever is the correct loginUrl, so it will work with or without this plugin.
+
+# Changelog
+
+02 March 2018
+http://www.yiiframework.com/doc-2.0/yii-base-object.html
+The class name `Object` is invalid since PHP 7.2, use [[BaseObject]] instead.
+Added SamlSettings options for easy configuration.
+Tested with ADFS 3.0, Windows 2012 R2 & simplesamlphp (IDP)

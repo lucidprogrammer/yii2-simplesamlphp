@@ -14,11 +14,11 @@ namespace lucidprogrammer\simplesamlphp;
 
 
 use yii;
-use yii\base\Object;
+use yii\base\BaseObject;
 use yii\web\IdentityInterface;
 use lucidprogrammer\simplesamlphp\SamlIdentity;
 
-class SamlIdentity extends Object implements IdentityInterface {
+class SamlIdentity extends BaseObject implements IdentityInterface {
 
   public $id;
   public $attributes;
@@ -43,8 +43,9 @@ class SamlIdentity extends Object implements IdentityInterface {
     {
       $attributes = Yii::$container->get('saml')->getAttributes();
       if(sizeof($attributes) > 0){
+        // just in case the user didn't set idAttribute, give something anyway, he can troubleshoot later instead of throwing errors here
         $id = mt_rand();
-        $uniqueIdentifierFromIdp = getenv('IDP_PROVIDED_USER_IDENTIFIER_NAME') ? getenv('IDP_PROVIDED_USER_IDENTIFIER_NAME') : '';
+        $uniqueIdentifierFromIdp = Yii::$container->get('samlsettings')->idAttribute ? Yii::$container->get('samlsettings')->idAttribute : '';
         if($uniqueIdentifierFromIdp){
           $id = $attributes[$uniqueIdentifierFromIdp] && count($attributes[$uniqueIdentifierFromIdp])>0 ? $attributes[$uniqueIdentifierFromIdp][0] : $id;
         }
@@ -86,7 +87,15 @@ class SamlIdentity extends Object implements IdentityInterface {
 
     public function __get($name)
     {
-        return isset($this->attributes[$name]) ? $this->attributes[$name][0] : null;
+      $result = null;
+      $mappings = Yii::$container->get('samlsettings')->mappings;
+      if(isset($mappings[$name]))
+      {
+        $result = isset($this->attributes[$mappings[$name]]) ? $this->attributes[$mappings[$name]][0] : null;
+      } else {
+        $result = isset($this->attributes[$name]) ? $this->attributes[$name][0] : null;
+      }
+        return $result;
     }
 
 

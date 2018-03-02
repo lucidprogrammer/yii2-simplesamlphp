@@ -22,8 +22,9 @@ class _SamlController extends Controller {
       Yii::$container->get('saml')->requireAuth();
     } else {
       $attributes = Yii::$container->get('saml')->getAttributes();
+      // just in case the user didn't set idAttribute, give something anyway, he can troubleshoot later instead of throwing errors here
       $id = mt_rand();
-      $uniqueIdentifierFromIdp = getenv('IDP_PROVIDED_USER_IDENTIFIER_NAME') ? getenv('IDP_PROVIDED_USER_IDENTIFIER_NAME') : '';
+      $uniqueIdentifierFromIdp = Yii::$container->get('samlsettings')->idAttribute ? Yii::$container->get('samlsettings')->idAttribute : '';
       if($uniqueIdentifierFromIdp){
         $id = $attributes[$uniqueIdentifierFromIdp] && count($attributes[$uniqueIdentifierFromIdp])>0 ? $attributes[$uniqueIdentifierFromIdp][0] : $id;
       }

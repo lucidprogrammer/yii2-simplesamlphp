@@ -13,9 +13,24 @@ namespace lucidprogrammer\simplesamlphp;
 
 use yii;
 use yii\web\User;
+use ArrayObject;
+use lucidprogrammer\simplesamlphp\SamlSettings;
 
 class SamlUser extends User
 {
+
+  function __construct($attributes=[]) {
+    $idAttribute = null;
+    $mappings = null;
+    if(array_key_exists('idAttribute', $attributes)){
+      $idAttribute = $attributes['idAttribute'];
+      $mappings = (new ArrayObject($attributes))->getArrayCopy();
+      unset($mappings['idAttribute']);
+      $mappings = array_values($mappings);
+    }
+    Yii::$container->set('samlsettings',new SamlSettings($idAttribute,$mappings,[]));
+    parent::__construct();
+  }
   /**
   * changing the loginUrl and identityClass
   * so while configuring yii2, just point to the user class and all other auth rules should automatically work.

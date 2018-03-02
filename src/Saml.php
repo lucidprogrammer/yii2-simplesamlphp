@@ -10,9 +10,9 @@
  */
 
 namespace lucidprogrammer\simplesamlphp;
-use yii\base\Object;
+use yii\base\BaseObject;
 
-class Saml extends Object {
+class Saml extends BaseObject {
 
     /**
      * Authentication source you will use.
