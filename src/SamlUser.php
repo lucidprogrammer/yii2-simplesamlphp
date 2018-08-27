@@ -26,7 +26,6 @@ class SamlUser extends User
       $idAttribute = $attributes['idAttribute'];
       $mappings = (new ArrayObject($attributes))->getArrayCopy();
       unset($mappings['idAttribute']);
-      $mappings = array_values($mappings);
     }
     Yii::$container->get('samlsettings')->idAttribute = $idAttribute;
     Yii::$container->get('samlsettings')->mappings = $mappings;
